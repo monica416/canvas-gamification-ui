@@ -1,16 +1,32 @@
-<table mat-table [dataSource]="leaderBoardData" matSort matSortActive="token" matSortDirection="desc"
-       matSortDisableClear
-       class="table table-hover hover-shadow">
+<div class="container podium-container">
+    <div *ngFor="let user of topThree; let i = index" [ngClass]="{'first' : i == 0, 'second' : i == 1, 'third' : i == 2}"
+         class="podium-wrapper">
+         <div class="first second third trophy"></div>
+        <div class="podium-content">
+            <h2 class="podium-title">
+                {{user.name | titlecase}}
+            </h2>
+            <p class="podium-body">Place: {{ i + 1}}</p>
+            <p class="podium-body">Tokens: {{user.token || 'No Tokens'}}</p>
+        </div>
+    </div>
+</div>
+
+<table [dataSource]="leaderBoardData" class="table table-hover hover-shadow" mat-table matSort matSortActive="token"
+       matSortDirection="desc" matSortDisableClear>
+    <ng-container matColumnDef="rank">
+        <th *matHeaderCellDef mat-header-cell>Rank</th>
+        <td *matCellDef="let i = index" mat-cell>{{i + 4}}</td>
+    </ng-container>
     <ng-container matColumnDef="name">
-        <th mat-header-cell *matHeaderCellDef mat-sort-header> Name</th>
-        <td mat-cell *matCellDef="let element"> {{element.name || 'Anonymous User'}} </td>
+        <th *matHeaderCellDef mat-header-cell>Name</th>
+        <td *matCellDef="let element" mat-cell> {{(element.name | titlecase) || 'Anon'}}</td>
     </ng-container>
-
     <ng-container matColumnDef="token">
-        <th mat-header-cell *matHeaderCellDef mat-sort-header> Token</th>
-        <td mat-cell *matCellDef="let element"> {{element.token || 'No Tokens'}} </td>
+        <th *matHeaderCellDef mat-header-cell>Tokens</th>
+        <td *matCellDef="let element" mat-cell> {{element.token || 'No Tokens'}}</td>
     </ng-container>
 
-    <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
-    <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+    <tr *matHeaderRowDef="displayedColumns" mat-header-row></tr>
+    <tr *matRowDef="let row; columns: displayedColumns;" mat-row></tr>
 </table>

@@ -1,3 +1,4 @@
+ 
 import {BrowserModule} from '@angular/platform-browser';
 import {NgModule} from '@angular/core';
 import {HTTP_INTERCEPTORS, HttpClientModule} from '@angular/common/http';
@@ -46,6 +47,9 @@ import {MatProgressSpinnerModule} from '@angular/material/progress-spinner';
 import {ToastrModule} from "ngx-toastr";
 import {NotFoundComponent} from './components/general/not-found/not-found.component';
 import {ForbiddenComponent} from './components/general/forbidden/forbidden.component';
+import {TuiRootModule} from '@taiga-ui/core';
+import { ComponentNameComponent } from './components/component-name/component-name.component';
+
 
 @NgModule({
     declarations: [
@@ -66,6 +70,7 @@ import {ForbiddenComponent} from './components/general/forbidden/forbidden.compo
         InactiveCoursesComponent,
         NotFoundComponent,
         ForbiddenComponent,
+        ComponentNameComponent
     ],
     imports: [
         BrowserModule,
@@ -98,6 +103,7 @@ import {ForbiddenComponent} from './components/general/forbidden/forbidden.compo
         MatSelectModule,
         ToastrModule.forRoot(),
         HighlightModule,
+        TuiRootModule,
     ],
     providers: [
         {provide: HTTP_INTERCEPTORS, useClass: JwtInterceptor, multi: true},
